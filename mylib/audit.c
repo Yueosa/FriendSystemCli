@@ -14,10 +14,11 @@ static FILE *audit_file = NULL;
 int audit_init(const char *filename) {
     char filepath[256];
 
+// 跨平台目录创建
 #ifdef _WIN32
-    _mkdir("log");
+    _mkdir("log"); // Win
 #else
-    mkdir("log", 0755);
+    mkdir("log", 0755); // Linux
 #endif
 
     snprintf(filepath, sizeof(filepath), "log/%s", filename);
@@ -43,3 +44,29 @@ void audit_close() {
         audit_file = NULL;
     }
 }
+
+/*
+示例调用
+#include <stdio.h>
+#include "audit.h"
+
+int main() {
+    // 初始化日志系统，日志会写到 log/app.log
+    if (!audit_init("app.log")) {
+        printf("无法初始化日志系统！\n");
+        return 1;
+    }
+
+    // 写入一些日志
+    audit_log("START", "程序启动");
+    audit_log("LOGIN", "用户 alice 登录成功");
+    audit_log("DOWNLOAD", "用户下载文件 report.pdf");
+    audit_log("LOGOUT", "用户 alice 退出登录");
+
+    // 关闭日志
+    audit_close();
+
+    printf("日志已写入 log/app.log\n");
+    return 0;
+}
+*/
