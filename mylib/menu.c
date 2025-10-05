@@ -1,4 +1,5 @@
 #include "menu.h"
+#include <stdio.h>
 
 void menu() {
     printf("\n===== 朋友管理系统 =====\n");
