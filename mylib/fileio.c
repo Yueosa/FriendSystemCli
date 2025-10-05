@@ -1,19 +1,24 @@
-#include "fileio.h"
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "fileio.h"
+
+
 #ifdef _WIN32
     #include <direct.h>
 #endif
 
+
 #define MAX_LINE_LENGTH 256
+
 
 enum SATA {
     SUCCESS = 0,
     FIELD = 1,
 };
+
 
 int load_friends_from_csv(const char *filename, Friend *friends, int *friend_count) {
     char filepath[256];
@@ -34,7 +39,6 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
 #endif
     }
 
-    // 打开文件，如果不存在则新建
     FILE *file = fopen(filepath, "r");
     if (!file) {
         file = fopen(filepath, "w");
@@ -64,6 +68,7 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
     return SUCCESS;
 }
 
+
 int save_friends_to_csv(const char *filename, const Friend *friends, int friend_count) {
     char filepath[256];
     snprintf(filepath, sizeof(filepath), "data/%s", filename);
@@ -86,4 +91,3 @@ int save_friends_to_csv(const char *filename, const Friend *friends, int friend_
     fclose(file);
     return SUCCESS;
 }
-
