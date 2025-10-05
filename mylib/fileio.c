@@ -16,7 +16,7 @@
 
 enum SATA {
     SUCCESS = 0,
-    FIELD = 1,
+    FAILED = 1,
 };
 
 
@@ -29,12 +29,12 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
 #ifdef _WIN32
         if (_mkdir("data") != 0) {
             perror("无法创建 data 目录");
-            return FIELD;
+            return FAILED;
         }
 #else
         if (mkdir("data", 0755) != 0) {
             perror("无法创建 data 目录");
-            return FIELD;
+            return FAILED;
         }
 #endif
     }
@@ -44,7 +44,7 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
         file = fopen(filepath, "w");
         if (!file) {
             perror("无法创建文件");
-            return FIELD;
+            return FAILED;
         }
         fclose(file);
         file = fopen(filepath, "r");
@@ -76,7 +76,7 @@ int save_friends_to_csv(const char *filename, const Friend *friends, int friend_
     FILE *file = fopen(filepath, "w");
     if (!file) {
         perror("无法创建文件");
-        return FIELD;
+        return FAILED;
     }
 
     for (int i = 0; i < friend_count; i++) {
