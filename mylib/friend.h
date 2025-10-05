@@ -10,6 +10,8 @@ typedef struct {
     char desc[200];
 } Friend;
 
+
 void print_friend(const Friend *f);
+
 
 #endif
