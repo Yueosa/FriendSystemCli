@@ -11,7 +11,7 @@
 
 enum SATA {
     SUCCESS = 0,
-    FIELD = 1,
+    FAILED = 1,
 };
 
 
@@ -27,7 +27,7 @@ enum Options {
 int play() {
     if (system_init() != 0) {
         output_error("系统初始化失败");
-        return FIELD;
+        return FAILED;
     }
 
     int choice;
@@ -65,12 +65,7 @@ int play() {
                 int id;
                 printf("输入要查询的朋友ID: ");
                 scanf("%d", &id);
-                Friend* f = system_find_friend(id);
-                if (f != NULL) {
-                    print_friend(f);
-                } else {
-                    output_warning("对象不存在");
-                }
+                system_find_and_print(id);
                 break;
             }
 
