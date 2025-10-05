@@ -18,7 +18,16 @@
 ```bash
 cd FriendSystemCli
 mkdir -p build
-gcc main.c     mylib/menu.c     mylib/play.c     mylib/system.c     mylib/friend.c     mylib/output.c     mylib/audit.c     mylib/fileio.c     -o build/friendsystem
+gcc \
+  main.c \
+  mylib/menu.c \
+  mylib/play.c \
+  mylib/system.c \
+  mylib/friend.c \
+  mylib/output.c \
+  mylib/audit.c \
+  mylib/fileio.c \
+  -o build/friendsystem
 ```
 
 > 💡 如果系统提示 `gcc: command not found`，请先安装编译器：
