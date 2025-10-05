@@ -10,6 +10,11 @@
 
 #define MAX_LINE_LENGTH 256
 
+enum SATA {
+    SUCCESS = 0,
+    FIELD = 1,
+};
+
 int load_friends_from_csv(const char *filename, Friend *friends, int *friend_count) {
     char filepath[256];
     snprintf(filepath, sizeof(filepath), "data/%s", filename);
@@ -19,12 +24,12 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
 #ifdef _WIN32
         if (_mkdir("data") != 0) {
             perror("无法创建 data 目录");
-            return 0;
+            return FIELD;
         }
 #else
         if (mkdir("data", 0755) != 0) {
             perror("无法创建 data 目录");
-            return 0;
+            return FIELD;
         }
 #endif
     }
@@ -35,7 +40,7 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
         file = fopen(filepath, "w");
         if (!file) {
             perror("无法创建文件");
-            return 0;
+            return FIELD;
         }
         fclose(file);
         file = fopen(filepath, "r");
@@ -56,7 +61,7 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
     }
 
     fclose(file);
-    return 1;
+    return SUCCESS;
 }
 
 int save_friends_to_csv(const char *filename, const Friend *friends, int friend_count) {
@@ -66,7 +71,7 @@ int save_friends_to_csv(const char *filename, const Friend *friends, int friend_
     FILE *file = fopen(filepath, "w");
     if (!file) {
         perror("无法创建文件");
-        return 0;
+        return FIELD;
     }
 
     for (int i = 0; i < friend_count; i++) {
@@ -79,6 +84,6 @@ int save_friends_to_csv(const char *filename, const Friend *friends, int friend_
     }
 
     fclose(file);
-    return 1;
+    return SUCCESS;
 }
 

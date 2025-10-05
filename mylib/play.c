@@ -7,10 +7,15 @@
 #include "fileio.h"
 #include "menu.h"
 
+enum SATA {
+    SUCCESS = 0,
+    FIELD = 1,
+};
+
 int play() {
     if (system_init() != 0) {
         output_error("系统初始化失败，退出。");
-        return 1;
+        return FIELD;
     }
 
     int choice;
@@ -42,7 +47,7 @@ int play() {
             scanf("%d", &id);
             Friend* f = system_find_friend(id);
             if (f) {
-                printf("找到朋友: %s\n", f->name);
+                printf("找到朋友: %s\n", f);
             } else {
                 output_warning("对象不存在");
             }
@@ -57,5 +62,5 @@ int play() {
     }
 
     system_end();
-    return 0;
+    return SUCCESS;
 }

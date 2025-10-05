@@ -24,7 +24,7 @@ int audit_init(const char *filename) {
     snprintf(filepath, sizeof(filepath), "log/%s", filename);
 
     audit_file = fopen(filepath, "a");
-    return (audit_file != NULL);
+    return (audit_file == NULL);
 }
 
 void audit_log(const char *action, const char *detail) {

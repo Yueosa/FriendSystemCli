@@ -16,7 +16,7 @@ int system_remove_friend(int id);
 Friend* system_find_friend(int id);
 
 // 列出所有朋友
-void system_list_friends();
+int system_list_friends();
 
 // 清理
 int system_end();
