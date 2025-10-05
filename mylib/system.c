@@ -14,8 +14,23 @@
 static Friend friends[MAX_FRIEND];
 static int friend_count = 0;
 
-void system_init() {
+static void system_cleanup() {
     friend_count = 0;
+}
+
+int system_init() {
+    friend_count = 0;
+
+    if (!load_friends_from_csv("friends.csv", friends, &friend_count)) {
+        output_error("无法加载");
+        return 1;
+    }
+
+    if (!audit_init("audit.log")) {
+        output_error("审计系统初始化失败");
+        return 1;
+    }
+    return 0;
 }
 
 int system_add_friend(Friend f) {
@@ -41,7 +56,9 @@ int system_remove_friend(int id) {
         }
     }
     output_warning("错误...不存在的对象");
-    audit_log("DELETE_ERROR", id);
+    char buf[32];
+    sprintf(buf, "%d", id);
+    audit_log("DELETE_ERROR", buf);
     return 0;
 }
 
@@ -49,18 +66,22 @@ int system_remove_friend(int id) {
 Friend* system_find_friend(int id) {
     for (int i = 0; i < friend_count; i++) {
         if (friends[i].id == id) {
-            audit_log("FIND", id);
+            char buf[32];
+            sprintf(buf, "%d", id);
+            audit_log("FIND", buf);
             return &friends[i];
         }
     }
-    audit_log("FIND_ERROR", id);
+    char buf[32];
+    sprintf(buf, "%d", id);
+    audit_log("FIND_ERROR", buf);
     return NULL;
 }
 
 void system_list_friends() {
     if (friend_count == 0) {
         output_warning("\n怎么一个朋友都没有...");
-        audit_log("LIST_ERROR", 0);
+        audit_log("LIST_ERROR", "0");
         return;
     }
     printf("\n");
@@ -73,51 +94,16 @@ void system_list_friends() {
                 friends[i].desc
                 );
     }
-    audit_log("LIST", 1);
+    audit_log("LIST", "success");
 }
 
-void system_cleanup() {
-    friend_count = 0;
-}
-/*
-示例调用
-#include "system.h"
-#include "audit.h"
-#include "output.h"
-#include <stdio.h>
-
-int main() {
-    // 初始化
-    system_init();
-    audit_init("system.log");
-
-    // 添加好友
-    Friend f1 = {1, "Alice", 123456, "Female", "喜欢编程"};
-    Friend f2 = {2, "Bob", 654321, "Male", "打游戏的好伙伴"};
-
-    system_add_friend(f1);
-    system_add_friend(f2);
-
-    // 列出好友
-    system_list_friends();
-
-    // 查找好友
-    Friend* f = system_find_friend(1);
-    if (f) {
-        printf("\n找到好友：%s (QQ: %d)\n", f->name, f->qqid);
+int system_end() {
+    if (!save_friends_to_csv("friends.csv", friends, friend_count)) {
+        output_error("无法保存数据");
+        return 1;
     }
 
-    // 删除好友
-    system_remove_friend(2);
-
-    // 再次列出
-    system_list_friends();
-
-    // 清理
     system_cleanup();
     audit_close();
-
     return 0;
 }
-
-*/

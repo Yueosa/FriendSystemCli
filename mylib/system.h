@@ -4,7 +4,7 @@
 #include "friend.h"
 
 // 初始化系统
-void system_init();
+int system_init();
 
 // 添加朋友
 int system_add_friend(Friend f);
@@ -19,6 +19,6 @@ Friend* system_find_friend(int id);
 void system_list_friends();
 
 // 清理
-void system_cleanup();
+int system_end();
 
 #endif
