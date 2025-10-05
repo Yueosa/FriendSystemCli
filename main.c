@@ -11,23 +11,16 @@
 #endif
 
 void friend_system_cli() {
-    while (1 == 1)
-    {
-        menu();
-        play();
-    }
-    
+    play();
 }
 
-void main() {
+int main() {
 #ifdef _WIN32
-    // 设置 Windows 控制台为 UTF-8
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 #else
-    // Linux/Mac：使用本地语言环境（一般默认 UTF-8）
     setlocale(LC_ALL, "");
 #endif
-
-    return friend_system_cli();
+    friend_system_cli();
+    return 0;
 }
