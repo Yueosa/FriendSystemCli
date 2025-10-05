@@ -16,6 +16,8 @@
 ### 🐧 Linux / macOS
 
 ```bash
+# 克隆项目仓库
+git clone git@github.com:Yueosa/FriendSystemCli.git
 cd FriendSystemCli
 mkdir -p build
 gcc \
@@ -45,6 +47,8 @@ gcc \
 #### 使用 MinGW 手动编译：
 
 ```bash
+# 克隆项目仓库
+git clone git@github.com:Yueosa/FriendSystemCli.git
 cd FriendSystemCli
 mkdir build
 gcc main.c ^
