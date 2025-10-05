@@ -9,16 +9,18 @@
     #include <direct.h>
 #endif
 
+
 static FILE *audit_file = NULL;
+
 
 int audit_init(const char *filename) {
     char filepath[256];
 
-// 跨平台目录创建
+
 #ifdef _WIN32
-    _mkdir("log"); // Win
+    _mkdir("log");
 #else
-    mkdir("log", 0755); // Linux
+    mkdir("log", 0755);
 #endif
 
     snprintf(filepath, sizeof(filepath), "log/%s", filename);
@@ -26,6 +28,7 @@ int audit_init(const char *filename) {
     audit_file = fopen(filepath, "a");
     return (audit_file == NULL);
 }
+
 
 void audit_log(const char *action, const char *detail) {
     if (!audit_file) return;
@@ -37,6 +40,7 @@ void audit_log(const char *action, const char *detail) {
     fprintf(audit_file, "[%s] ACTION: %s | DETAIL: %s\n", time_str, action, detail);
     fflush(audit_file);
 }
+
 
 void audit_close() {
     if (audit_file) {
