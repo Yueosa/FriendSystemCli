@@ -1,31 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "friend.h" // 定义朋友
-#include "system.h" // 系统操作
-#include "output.h" // 信息输出
+#include "friend.h"
+#include "system.h"
+#include "output.h"
 #include "audit.h"
 #include "fileio.h"
-
-// 这里应该只保留if结构，其余操作下放到system完成
+#include "menu.h"
 
 int play() {
-
-    Friend friends[100];
-    int friend_count = 0;
-
-    if (!load_friends_from_csv("friends.csv", friends, &friend_count)) {
-        output_warning("无法加载朋友数据，可能是文件不存在或格式错误");
-    }
-
-    system_init();
-    if (!audit_init("audit.log")) {
-        output_error("审计系统初始化失败");
+    if (system_init() != 0) {
+        output_error("系统初始化失败，退出。");
         return 1;
     }
 
     int choice;
     while (1) {
-        print_menu();
+        menu();
         scanf("%d", &choice);
 
         if (choice == 1) {
@@ -41,7 +31,6 @@ int play() {
             printf("输入描述: ");
             scanf("%s", f.desc);
             system_add_friend(f);
-            friends[friend_count++] = f;
         } else if (choice == 2) {
             int id;
             printf("输入要删除的朋友ID: ");
@@ -67,11 +56,6 @@ int play() {
         }
     }
 
-    if (!save_friends_to_csv("friends.csv", friends, friend_count)) {
-        output_error("无法保存朋友数据");
-    }
-
-    system_cleanup();
-    audit_close();
+    system_end();
     return 0;
 }
