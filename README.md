@@ -16,9 +16,20 @@
 ### 🐧 Linux / macOS
 
 ```bash
+# 克隆项目仓库
+git clone git@github.com:Yueosa/FriendSystemCli.git
 cd FriendSystemCli
 mkdir -p build
-gcc main.c     mylib/menu.c     mylib/play.c     mylib/system.c     mylib/friend.c     mylib/output.c     mylib/audit.c     mylib/fileio.c     -o build/friendsystem
+gcc \
+  main.c \
+  mylib/menu.c \
+  mylib/play.c \
+  mylib/system.c \
+  mylib/friend.c \
+  mylib/output.c \
+  mylib/audit.c \
+  mylib/fileio.c \
+  -o build/friendsystem
 ```
 
 > 💡 如果系统提示 `gcc: command not found`，请先安装编译器：
@@ -36,6 +47,8 @@ gcc main.c     mylib/menu.c     mylib/play.c     mylib/system.c     mylib/friend
 #### 使用 MinGW 手动编译：
 
 ```bash
+# 克隆项目仓库
+git clone git@github.com:Yueosa/FriendSystemCli.git
 cd FriendSystemCli
 mkdir build
 gcc main.c ^
