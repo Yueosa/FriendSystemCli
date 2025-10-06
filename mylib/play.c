@@ -65,7 +65,7 @@ int play() {
                 int id;
                 printf("输入要查询的朋友ID: ");
                 scanf("%d", &id);
-                system_find_and_print(id);
+                system_find_and_printf(id);
                 break;
             }
 
