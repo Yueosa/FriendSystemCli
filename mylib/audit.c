@@ -13,7 +13,7 @@
 static FILE *audit_file = NULL;
 
 
-enum AUDIT_STAT audit_init(const char *filename) {
+int audit_init(const char *filename) {
     char filepath[256];
 
 
@@ -26,11 +26,7 @@ enum AUDIT_STAT audit_init(const char *filename) {
     snprintf(filepath, sizeof(filepath), "log/%s", filename);
 
     audit_file = fopen(filepath, "a");
-    if (audit_file == NULL) {
-        return SUCCESS;
-    } else {
-        return FAILED;
-    }
+    return (audit_file == NULL);
 }
 
 

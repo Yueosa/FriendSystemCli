@@ -10,7 +10,7 @@
 #include "play.h"
 
 
-enum PLAY_STAT play() {
+enum STATUS play() {
     if (system_init() != 0) {
         output_error("系统初始化失败");
         return FAILED;

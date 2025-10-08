@@ -22,7 +22,7 @@ static void system_cleanup() {
 }
 
 
-enum SYSTEM_STAT system_init() {
+enum STATUS system_init() {
     system_cleanup();
 
     if (load_friends_from_csv("friends.csv", friends, &friend_count)) {
@@ -66,7 +66,7 @@ static Friend system_get_friend() {
 }
 
 
-static enum SYSTEM_STAT system_add_friend(Friend f) {
+static enum STATUS system_add_friend(Friend f) {
     if (friend_count >= MAX_FRIEND) {
         output_error("朋友太多了~塞不下了唔...");
         audit_log("ADD_ERROR", f.name);
@@ -79,14 +79,14 @@ static enum SYSTEM_STAT system_add_friend(Friend f) {
 }
 
 
-enum SYSTEM_STAT system_get_and_add_friend() {
+enum STATUS system_get_and_add_friend() {
     Friend f = system_get_friend();
     return system_add_friend(f);
 
 }
 
 
-enum SYSTEM_STAT system_remove_friend(int id) {
+enum STATUS system_remove_friend(int id) {
     for (int i = 0; i < friend_count; i++) {
         if (friends[i].id == id) {
             friends[i] = friends[friend_count - 1];
@@ -130,7 +130,7 @@ void system_find_and_printf(int id) {
 }
 
 
-enum SYSTEM_STAT system_list_friends() {
+enum STATUS system_list_friends() {
     if (friend_count == 0) {
         output_warning("\n怎么一个朋友都没有...");
         audit_log("LIST_ERROR", "List is empty");
@@ -151,7 +151,7 @@ enum SYSTEM_STAT system_list_friends() {
 }
 
 
-enum SYSTEM_STAT system_end() {
+enum STATUS system_end() {
     if (save_friends_to_csv("friends.csv", friends, friend_count)) {
         output_error("无法保存数据");
         return FAILED;

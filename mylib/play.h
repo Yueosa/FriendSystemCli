@@ -1,11 +1,7 @@
 #ifndef PLAY_H
 #define PLAY_H
 
-
-enum PLAY_STAT {
-    SUCCESS = 0,
-    FAILED = 1,
-};
+#include "status.h"
 
 
 enum Options {
@@ -17,7 +13,7 @@ enum Options {
 };
 
 
-enum PLAY_STAT play();
+enum STATUS play();
 
 
 #endif

@@ -2,30 +2,25 @@
 #define SYSTEM_H
 
 #include "friend.h"
+#include "status.h"
 
 
-enum SYSTEM_STAT {
-    SUCCESS = 0,
-    FAILED = 1,
-};
+enum STATUS system_init();
 
 
-enum SYSTEM_STAT system_init();
+enum STATUS system_get_and_add_friend();
 
 
-enum SYSTEM_STAT system_get_and_add_friend();
-
-
-enum SYSTEM_STAT system_remove_friend(int id);
+enum STATUS system_remove_friend(int id);
 
 
 void system_find_and_printf(int id);
 
 
-enum SYSTEM_STAT system_list_friends();
+enum STATUS system_list_friends();
 
 
-enum SYSTEM_STAT system_end();
+enum STATUS system_end();
 
 
 #endif
