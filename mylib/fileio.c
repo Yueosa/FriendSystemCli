@@ -14,13 +14,7 @@
 #define MAX_LINE_LENGTH 256
 
 
-enum SATA {
-    SUCCESS = 0,
-    FAILED = 1,
-};
-
-
-int load_friends_from_csv(const char *filename, Friend *friends, int *friend_count) {
+enum FILEIO_STAT load_friends_from_csv(const char *filename, Friend *friends, int *friend_count) {
     char filepath[256];
     snprintf(filepath, sizeof(filepath), "data/%s", filename);
 
@@ -69,7 +63,7 @@ int load_friends_from_csv(const char *filename, Friend *friends, int *friend_cou
 }
 
 
-int save_friends_to_csv(const char *filename, const Friend *friends, int friend_count) {
+enum FILEIO_STAT save_friends_to_csv(const char *filename, const Friend *friends, int friend_count) {
     char filepath[256];
     snprintf(filepath, sizeof(filepath), "data/%s", filename);
 
