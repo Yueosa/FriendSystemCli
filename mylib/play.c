@@ -20,10 +20,12 @@ enum STATUS play() {
     while (1) {
         menu();
         scanf("%d", &choice);
+        while (getchar() != '\n');
 
         switch (choice) {
             case ADD: {
                 system_get_and_add_friend();
+                break;
             }
 
             case DELETE: {

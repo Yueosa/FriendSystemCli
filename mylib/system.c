@@ -44,11 +44,11 @@ static Friend system_get_friend() {
 
     printf("输入学生ID: ");
     fgets(buffer, sizeof(buffer), stdin);
-    f.id = atoi(buffer);  // 把字符串转成数字，自动忽略非数字部分
+    f.id = atoi(buffer);
 
     printf("输入姓名: ");
     fgets(f.name, sizeof(f.name), stdin);
-    f.name[strcspn(f.name, "\n")] = '\0'; // 去掉换行
+    f.name[strcspn(f.name, "\n")] = '\0';
 
     printf("输入QQID: ");
     fgets(buffer, sizeof(buffer), stdin);
