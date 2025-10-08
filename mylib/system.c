@@ -38,7 +38,7 @@ enum STAT system_init() {
 }
 
 
-Friend system_get_friend() {
+static Friend system_get_friend() {
     Friend f;
     char buffer[128];
 
@@ -66,7 +66,7 @@ Friend system_get_friend() {
 }
 
 
-enum STAT system_add_friend(Friend f) {
+static enum STAT system_add_friend(Friend f) {
     if (friend_count >= MAX_FRIEND) {
         output_error("朋友太多了~塞不下了唔...");
         audit_log("ADD_ERROR", f.name);
@@ -104,7 +104,7 @@ enum STAT system_remove_friend(int id) {
 }
 
 
-Friend* system_find_friend(int id) {
+static Friend* system_find_friend(int id) {
     for (int i = 0; i < friend_count; i++) {
         if (friends[i].id == id) {
             char buf[32];

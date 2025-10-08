@@ -13,19 +13,10 @@ enum STAT {
 enum STAT system_init();
 
 
-Friend system_get_friend();
-
-
-enum STAT system_add_friend(Friend f);
-
-
 enum STAT system_get_and_add_friend();
 
 
 enum STAT system_remove_friend(int id);
-
-
-Friend* system_find_friend(int id);
 
 
 void system_find_and_printf(int id);
