@@ -7,24 +7,10 @@
 #include "audit.h"
 #include "fileio.h"
 #include "menu.h"
+#include "play.h"
 
 
-enum SATA {
-    SUCCESS = 0,
-    FAILED = 1,
-};
-
-
-enum Options {
-    ADD = 1,
-    DELETE,
-    FIND,
-    LIST,
-    QUIT,
-};
-
-
-int play() {
+enum PLAY_STAT play() {
     if (system_init() != 0) {
         output_error("系统初始化失败");
         return FAILED;
