@@ -13,12 +13,6 @@
 #define MAX_FRIEND 100
 
 
-enum SATA {
-    SUCCESS = 0,
-    FAILED = 1,
-};
-
-
 static Friend friends[MAX_FRIEND];
 static int friend_count = 0;
 
@@ -28,7 +22,7 @@ static void system_cleanup() {
 }
 
 
-int system_init() {
+enum STAT system_init() {
     system_cleanup();
 
     if (load_friends_from_csv("friends.csv", friends, &friend_count)) {
@@ -44,7 +38,35 @@ int system_init() {
 }
 
 
-int system_add_friend(Friend f) {
+Friend system_get_friend() {
+    Friend f;
+    char buffer[128];
+
+    printf("输入学生ID: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    f.id = atoi(buffer);  // 把字符串转成数字，自动忽略非数字部分
+
+    printf("输入姓名: ");
+    fgets(f.name, sizeof(f.name), stdin);
+    f.name[strcspn(f.name, "\n")] = '\0'; // 去掉换行
+
+    printf("输入QQID: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    f.qqid = atoi(buffer);
+
+    printf("输入性别: ");
+    fgets(f.gender, sizeof(f.gender), stdin);
+    f.gender[strcspn(f.gender, "\n")] = '\0';
+
+    printf("输入描述: ");
+    fgets(f.desc, sizeof(f.desc), stdin);
+    f.desc[strcspn(f.desc, "\n")] = '\0';
+
+    return f;
+}
+
+
+enum STAT system_add_friend(Friend f) {
     if (friend_count >= MAX_FRIEND) {
         output_error("朋友太多了~塞不下了唔...");
         audit_log("ADD_ERROR", f.name);
@@ -57,7 +79,14 @@ int system_add_friend(Friend f) {
 }
 
 
-int system_remove_friend(int id) {
+enum STAT system_get_and_add_friend() {
+    Friend f = system_get_friend();
+    return system_add_friend(f);
+
+}
+
+
+enum STAT system_remove_friend(int id) {
     for (int i = 0; i < friend_count; i++) {
         if (friends[i].id == id) {
             friends[i] = friends[friend_count - 1];
@@ -101,7 +130,7 @@ void system_find_and_printf(int id) {
 }
 
 
-int system_list_friends() {
+enum STAT system_list_friends() {
     if (friend_count == 0) {
         output_warning("\n怎么一个朋友都没有...");
         audit_log("LIST_ERROR", "List is empty");
@@ -122,7 +151,7 @@ int system_list_friends() {
 }
 
 
-int system_end() {
+enum STAT system_end() {
     if (save_friends_to_csv("friends.csv", friends, friend_count)) {
         output_error("无法保存数据");
         return FAILED;

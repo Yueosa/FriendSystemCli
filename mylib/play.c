@@ -37,20 +37,7 @@ int play() {
 
         switch (choice) {
             case ADD: {
-                Friend f;
-                printf("输入学生ID: ");
-                scanf("%d", &f.id);
-                printf("输入姓名: ");
-                scanf("%s", f.name);
-                printf("输入QQID: ");
-                scanf("%d", &f.qqid);
-                printf("输入性别: ");
-                scanf("%s", f.gender);
-                printf("输入描述: ");
-                scanf("%s", f.desc);
-
-                system_add_friend(f);
-                break;
+                system_get_and_add_friend();
             }
 
             case DELETE: {
