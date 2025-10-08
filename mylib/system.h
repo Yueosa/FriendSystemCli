@@ -4,28 +4,28 @@
 #include "friend.h"
 
 
-enum STAT {
+enum SYSTEM_STAT {
     SUCCESS = 0,
     FAILED = 1,
 };
 
 
-enum STAT system_init();
+enum SYSTEM_STAT system_init();
 
 
-enum STAT system_get_and_add_friend();
+enum SYSTEM_STAT system_get_and_add_friend();
 
 
-enum STAT system_remove_friend(int id);
+enum SYSTEM_STAT system_remove_friend(int id);
 
 
 void system_find_and_printf(int id);
 
 
-enum STAT system_list_friends();
+enum SYSTEM_STAT system_list_friends();
 
 
-enum STAT system_end();
+enum SYSTEM_STAT system_end();
 
 
 #endif
