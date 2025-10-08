@@ -2,7 +2,13 @@
 #define AUDIT_H
 
 
-int audit_init(const char *filename);
+enum AUDIT_STAT {
+    SUCCESS = 0,
+    FAILED = 1,
+};
+
+
+enum AUDIT_STAT audit_init(const char *filename);
 
 
 void audit_log(const char *action, const char *detail);
