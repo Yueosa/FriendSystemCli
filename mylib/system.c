@@ -42,7 +42,7 @@ static Friend system_get_friend() {
     Friend f;
     char buffer[128];
 
-    printf("输入学生ID: ");
+    printf("输入朋友ID: ");
     fgets(buffer, sizeof(buffer), stdin);
     f.id = atoi(buffer);
 
